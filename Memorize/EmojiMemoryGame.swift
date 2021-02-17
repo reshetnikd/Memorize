@@ -21,7 +21,7 @@ class EmojiMemoryGame {
     // MARK: - Access to the Model
     
     var cards: Array<MemoryGame<String>.Card> {
-        model.cards
+        model.cards.shuffled()
     }
     
     // MARK: - Intents
