@@ -22,12 +22,12 @@ class EmojiMemoryGame: ObservableObject {
     // MARK: - Access to the Model
     
     var cards: Array<MemoryGame<String>.Card> {
-        model.cards.shuffled()
+        model.cards
     }
     
     // MARK: - Intents
     
     func choose(card: MemoryGame<String>.Card) {
-        model.choose(card: card)
+        model.choose(card)
     }
 }
