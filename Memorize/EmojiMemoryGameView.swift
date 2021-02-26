@@ -28,6 +28,12 @@ struct EmojiMemoryGameView: View {
 struct CardView: View {
     var card: MemoryGame<String>.Card
     
+    // MARK: - Drawing Constants
+    
+    let cornerRadius: CGFloat = 10.0
+    let edgeLineWidth: CGFloat = 3
+    let fontScaleFactor: CGFloat = 0.75
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -45,12 +51,6 @@ struct CardView: View {
             .font(Font.system(size: min(geometry.size.width, geometry.size.height) * fontScaleFactor))
         }
     }
-    
-    // MARK: - Drawing Constants
-    
-    let cornerRadius: CGFloat = 10.0
-    let edgeLineWidth: CGFloat = 3
-    let fontScaleFactor: CGFloat = 0.75
 }
 
 struct ContentView_Previews: PreviewProvider {
