@@ -68,8 +68,8 @@
 			children = (
 				352C5C9425DAF70B00C880E0 /* AppDelegate.swift */,
 				352C5C9625DAF70B00C880E0 /* SceneDelegate.swift */,
-				35863A8E25ED62050076C9C9 /* Grid.swift */,
 				35863A9525ED6A3E0076C9C9 /* Array+Identifiable.swift */,
+				35863A8E25ED62050076C9C9 /* Grid.swift */,
 				35863A9225ED669E0076C9C9 /* GridLayout.swift */,
 				352C5C9825DAF70B00C880E0 /* EmojiMemoryGameView.swift */,
 				3513427625DD9B1D00F87F75 /* EmojiMemoryGame.swift */,
