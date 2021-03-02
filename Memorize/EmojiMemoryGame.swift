@@ -19,6 +19,17 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
     
+    // MARK: - Themes
+    
+    var themes: Set<Theme> = [
+        Theme(name: "helloween", emoji: ["👻","🎃","😈","💀","🧛🏻‍♂️","🦇","🕸","🕷"], numberOfCards: 8, color: .orange),
+        Theme(name: "animals", emoji: ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐵"], numberOfCards: 9, color: .green),
+        Theme(name: "sports", emoji: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉","🎱"], numberOfCards: nil, color: .blue),
+        Theme(name: "faces", emoji: ["😁","😊","😅","😆","😂","😎","🤪","🤓","🥳"], numberOfCards: 6, color: .yellow),
+        Theme(name: "fruits", emoji: ["🍏","🍐","🍊","🍋","🍌","🍉","🍓","🍑","🥭"], numberOfCards: 7, color: .purple),
+        Theme(name: "flowers", emoji: ["💐","🌷","🌹","🥀","🌺","🌸","🌼","🌻","🍀"], numberOfCards: nil, color: .pink)
+    ]
+    
     // MARK: - Access to the Model
     
     var cards: Array<MemoryGame<String>.Card> {
