@@ -19,6 +19,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
     private(set) var theme: Theme
     private(set) var score: Int = 0
+    private var timeWhenCardWasChosen: Date = Date()
     private var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
             cards.indices.filter { cards[$0].isFaceUp }.only
@@ -49,12 +50,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
-                    score += 2
+                    score += 2 * max(10 - Int(timeWhenCardWasChosen.distance(to: Date())), 1)
                 } else {
                     if cards[chosenIndex].isInvolvedInMismatch && cards[potentialMatchIndex].isInvolvedInMismatch {
-                        score -= 2
+                        score -= 2 * max(10 - Int(timeWhenCardWasChosen.distance(to: Date())), 1)
                     } else if cards[chosenIndex].isInvolvedInMismatch || cards[potentialMatchIndex].isInvolvedInMismatch {
-                        score -= 1
+                        score -= 1 * max(10 - Int(timeWhenCardWasChosen.distance(to: Date())), 1)
                     }
                     cards[chosenIndex].isInvolvedInMismatch = true
                     cards[potentialMatchIndex].isInvolvedInMismatch = true
@@ -63,6 +64,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             } else {
                 indexOfOneAndOnlyFaceUpCard = chosenIndex
             }
+            timeWhenCardWasChosen = Date()
         }
     }
 }
