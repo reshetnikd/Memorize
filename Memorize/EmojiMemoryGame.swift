@@ -10,7 +10,7 @@ import SwiftUI
 class EmojiMemoryGame: ObservableObject {
     @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
     
-    static func createMemoryGame() -> MemoryGame<String> {
+    private static func createMemoryGame() -> MemoryGame<String> {
         let usedTheme = themes.randomElement()!
         var emoji = usedTheme.emoji
         emoji.shuffle()
@@ -22,7 +22,7 @@ class EmojiMemoryGame: ObservableObject {
     
     // MARK: - Themes
     
-    static var themes: Set<Theme> = [
+    private static var themes: Set<Theme> = [
         Theme(name: "Helloween", emoji: ["👻","🎃","😈","💀","🧛🏻‍♂️","🦇","🕸","🕷"], numberOfCards: 4, color: .orange),
         Theme(name: "Sports", emoji: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉"], numberOfCards: 4, color: .blue),
         Theme(name: "Animals", emoji: ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐵","🦁"], numberOfCards: 5, color: .green),
