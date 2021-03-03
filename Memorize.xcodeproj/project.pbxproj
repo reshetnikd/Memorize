@@ -19,6 +19,7 @@
 		35863A8F25ED62050076C9C9 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863A8E25ED62050076C9C9 /* Grid.swift */; };
 		35863A9325ED669E0076C9C9 /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863A9225ED669E0076C9C9 /* GridLayout.swift */; };
 		35863A9625ED6A3E0076C9C9 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35863A9525ED6A3E0076C9C9 /* Array+Extensions.swift */; };
+		35A3EE0A25F0123F00876512 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A3EE0925F0123F00876512 /* Pie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		35863A8E25ED62050076C9C9 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		35863A9225ED669E0076C9C9 /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		35863A9525ED6A3E0076C9C9 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		35A3EE0925F0123F00876512 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				35611F9B25EE828E00FE1D7D /* Theme.swift */,
 				35863A9225ED669E0076C9C9 /* GridLayout.swift */,
 				352C5C9825DAF70B00C880E0 /* EmojiMemoryGameView.swift */,
+				35A3EE0925F0123F00876512 /* Pie.swift */,
 				3513427625DD9B1D00F87F75 /* EmojiMemoryGame.swift */,
 				3513427325DD991A00F87F75 /* MemoryGame.swift */,
 				352C5C9A25DAF70C00C880E0 /* Assets.xcassets */,
@@ -163,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35A3EE0A25F0123F00876512 /* Pie.swift in Sources */,
 				35611F9C25EE828E00FE1D7D /* Theme.swift in Sources */,
 				352C5C9525DAF70B00C880E0 /* AppDelegate.swift in Sources */,
 				352C5C9725DAF70B00C880E0 /* SceneDelegate.swift in Sources */,

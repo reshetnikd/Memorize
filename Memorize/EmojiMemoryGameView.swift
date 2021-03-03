@@ -37,7 +37,7 @@ struct CardView: View {
     
     private let cornerRadius: CGFloat = 10.0
     private let edgeLineWidth: CGFloat = 3
-    private let fontScaleFactor: CGFloat = 0.75
+    private let fontScaleFactor: CGFloat = 0.7
     
     var body: some View {
         GeometryReader { geometry in
@@ -47,6 +47,9 @@ struct CardView: View {
                         .fill(Color.white)
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(lineWidth: edgeLineWidth)
+                    Pie(startAngle: Angle.degrees(0-90), endAngle: Angle.degrees(110-90), clockwise: true)
+                        .padding(5)
+                        .opacity(0.4)
                     Text(card.content)
                 } else {
                     if !card.isMatched {
