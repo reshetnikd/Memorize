@@ -16,6 +16,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     var cards: Array<Card>
+    var theme: Theme
     var indexOfOneAndOnlyFaceUpCard: Int? {
         get {
             cards.indices.filter { cards[$0].isFaceUp }.only
@@ -27,7 +28,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
-    init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+    init(numberOfPairsOfCards: Int, theme: Theme, cardContentFactory: (Int) -> CardContent) {
         cards = Array<Card>()
         
         for pairIndex in 0..<numberOfPairsOfCards {
@@ -36,6 +37,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             cards.append(Card(id: pairIndex * 2 + 1, content: content))
         }
         cards.shuffle()
+        self.theme = theme
     }
     
     mutating func choose(_ card: Card) {
