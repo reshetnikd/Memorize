@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Cardify: ViewModifier {
     var isFaceUp: Bool
+    var color: Color
     
     // MARK: - Drawing Constants
     
@@ -26,14 +27,14 @@ struct Cardify: ViewModifier {
                 content
             } else {
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill()
+                    .fill(LinearGradient(gradient: Gradient(colors: [.white, color, .black]), startPoint: .top, endPoint: .bottom))
             }
         }
     }
 }
 
 extension View {
-    func cardify(isFaceUp: Bool) -> some View {
-        self.modifier(Cardify(isFaceUp: isFaceUp))
+    func cardify(isFaceUp: Bool, color: Color) -> some View {
+        self.modifier(Cardify(isFaceUp: isFaceUp, color: color))
     }
 }
