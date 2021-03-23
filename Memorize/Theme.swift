@@ -7,9 +7,13 @@
 
 import SwiftUI
 
-struct Theme: Hashable {
+struct Theme: Hashable, Codable {
     let name: String
     let emoji: [String]
     let numberOfCards: Int
-    let color: Color
+    let color: UIColor.RGB
+    
+    func getColor() -> Color {
+        Color(color)
+    }
 }

@@ -28,7 +28,7 @@ struct EmojiMemoryGameView: View {
                     .padding(5)
             }
             .padding()
-            .foregroundColor(viewModel.chosenTheme.color)
+            .foregroundColor(viewModel.color)
             Text("Score: \(viewModel.gameScore)")
         }
     }
