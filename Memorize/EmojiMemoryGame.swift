@@ -15,7 +15,7 @@ class EmojiMemoryGame: ObservableObject {
         var emoji = usedTheme.emoji
         emoji.shuffle()
         
-        return MemoryGame<String>(numberOfPairsOfCards: usedTheme.numberOfCards != nil ? usedTheme.numberOfCards! : Int.random(in: 2...(emoji.count > 5 ? 5 : emoji.count)), theme: usedTheme) { pairIndex in
+        return MemoryGame<String>(numberOfPairsOfCards: usedTheme.numberOfCards, theme: usedTheme) { pairIndex in
             emoji[pairIndex]
         }
     }
@@ -23,12 +23,12 @@ class EmojiMemoryGame: ObservableObject {
     // MARK: - Themes
     
     private static var themes: Set<Theme> = [
-        Theme(name: "Helloween", emoji: ["👻","🎃","😈","💀","🧛🏻‍♂️","🦇","🕸","🕷"], numberOfCards: 4, color: .orange),
-        Theme(name: "Sports", emoji: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉"], numberOfCards: 4, color: .blue),
-        Theme(name: "Animals", emoji: ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐵","🦁"], numberOfCards: 5, color: .green),
-        Theme(name: "Faces", emoji: ["😁","😊","😅","😆","😂","😎","🤪","🤓","🥳","😋"], numberOfCards: 5, color: .yellow),
-        Theme(name: "Fruits", emoji: ["🍏","🍐","🍊","🍋","🍌","🍉","🍓","🍑","🥭","🍒"], numberOfCards: nil, color: .purple),
-        Theme(name: "Flowers", emoji: ["💐","🌷","🌹","🥀","🌺","🌸","🌼","🌻"], numberOfCards: nil, color: .pink)
+        Theme(name: "Helloween", emoji: ["👻","🎃","😈","💀","🧛🏻‍♂️","🦇","🕸","🕷"], numberOfCards: 8, color: .orange),
+        Theme(name: "Sports", emoji: ["⚽️","🏀","🏈","⚾️","🥎","🎾","🏐","🏉"], numberOfCards: 8, color: .blue),
+        Theme(name: "Animals", emoji: ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐵","🦁"], numberOfCards: 10, color: .green),
+        Theme(name: "Faces", emoji: ["😁","😊","😅","😆","😂","😎","🤪","🤓","🥳","😋"], numberOfCards: 10, color: .yellow),
+        Theme(name: "Fruits", emoji: ["🍏","🍐","🍊","🍋","🍌","🍉","🍓","🍑","🥭","🍒"], numberOfCards: 10, color: .purple),
+        Theme(name: "Flowers", emoji: ["💐","🌷","🌹","🥀","🌺","🌸","🌼","🌻"], numberOfCards: 8, color: .pink)
     ]
     
     // MARK: - Access to the Model
