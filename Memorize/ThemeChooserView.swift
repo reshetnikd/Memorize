@@ -19,7 +19,7 @@ struct ThemeChooserView: View {
                         destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame(usingTheme: theme))
                             .navigationBarTitle(theme.name),
                         label: {
-                            Text(theme.name)
+                            ThemeItem(theme)
                         })
                 }
             }
@@ -27,6 +27,8 @@ struct ThemeChooserView: View {
             .navigationBarItems(
                 leading: Button(action: {
                     // TODO: - ThemeEditor()
+                    let untitled = Theme(name: "Untitled", emoji: ["👍🏻", "👎🏻"], numberOfCards: 2, color: .init(red: 0, green: 0, blue: 0, alpha: 1))
+                    store.themes.append(untitled)
                 }, label: {
                     Image(systemName: "plus")
                         .imageScale(.large)
@@ -35,6 +37,27 @@ struct ThemeChooserView: View {
             )
             .environment(\.editMode, $editMode)
         }
+    }
+}
+
+struct ThemeItem: View {
+    let theme: Theme
+    
+    
+    var body: some View {
+        var emojiLine: String = ""
+        theme.emoji.forEach { emojiLine.append($0) }
+        
+        return VStack(alignment: .leading) {
+            Text(theme.name)
+                .fontWeight(.bold)
+                .foregroundColor(theme.getColor())
+            Text("\(theme.numberOfCards == theme.emoji.count ? "All of " : "\(theme.numberOfCards) pairs from ") \(emojiLine)")
+        }
+    }
+    
+    init(_ theme: Theme) {
+        self.theme = theme
     }
 }
 
