@@ -22,9 +22,13 @@ class ThemeStore: ObservableObject {
     ]
     
     init() {
-        themes = UserDefaults.standard.object(forKey: ThemeStore.key) as? [Theme] ?? []
+        if let decoded = UserDefaults.standard.data(forKey: ThemeStore.key) {
+            themes = try! JSONDecoder().decode([Theme].self, from: decoded)
+        }
         autosave = $themes.sink { themes in
-            UserDefaults.standard.set(themes, forKey: ThemeStore.key)
+            if let encoded = try? JSONEncoder().encode(themes) {
+                UserDefaults.standard.set(encoded, forKey: ThemeStore.key)
+            }
         }
     }
 }

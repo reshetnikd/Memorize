@@ -78,7 +78,8 @@ struct CardView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    static let theme = Theme(name: "Helloween", emoji: ["👻","🎃","😈","💀","🧛🏻‍♂️","🦇","🕸","🕷"], numberOfCards: 8, color: UIColor.RGB(red: 253/255, green: 141/255, blue: 14/255, alpha: 1.0))
     static var previews: some View {
-        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+        EmojiMemoryGameView(viewModel: EmojiMemoryGame(usingTheme: theme))
     }
 }
