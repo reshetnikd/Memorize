@@ -17,7 +17,6 @@ struct EmojiMemoryGameView: View {
                     viewModel.restartGame()
                 }
             }
-            Text(viewModel.chosenTheme.name)
             Grid(viewModel.cards) { card in
                 CardView(card: card)
                     .onTapGesture {
