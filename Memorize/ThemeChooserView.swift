@@ -16,11 +16,13 @@ struct ThemeChooserView: View {
             List {
                 ForEach(store.themes, id: \.self) { theme in
                     NavigationLink(
-                        destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame(usingTheme: theme))
-                            .navigationBarTitle(theme.name),
+                        destination: editMode.isEditing ? AnyView(ThemeEditor(theme).navigationTitle(theme.name)) : AnyView(EmojiMemoryGameView(viewModel: EmojiMemoryGame(usingTheme: theme)).navigationTitle(theme.name)),
                         label: {
                             ThemeItem(theme)
                         })
+                }
+                .onDelete { indexSet in
+                    store.themes.remove(atOffsets: indexSet)
                 }
             }
             .navigationBarTitle(Text("Memorize"))
@@ -40,9 +42,20 @@ struct ThemeChooserView: View {
     }
 }
 
+struct ThemeEditor: View {
+    var theme: Theme
+    
+    var body: some View {
+        Text(theme.name)
+    }
+    
+    init(_ theme: Theme) {
+        self.theme = theme
+    }
+}
+
 struct ThemeItem: View {
     let theme: Theme
-    
     
     var body: some View {
         var emojiLine: String = ""
@@ -62,7 +75,10 @@ struct ThemeItem: View {
 }
 
 struct ThemeChooserView_Previews: PreviewProvider {
+    static var previewTheme = Theme(name: "Untitled", emoji: ["👍🏻", "👎🏻"], numberOfCards: 2, color: .init(red: 0, green: 0, blue: 0, alpha: 1))
+    
     static var previews: some View {
-        ThemeChooserView()
+        ThemeChooserView().environmentObject(ThemeStore())
+        ThemeEditor(previewTheme)
     }
 }
