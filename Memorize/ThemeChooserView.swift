@@ -10,19 +10,34 @@ import SwiftUI
 struct ThemeChooserView: View {
     @EnvironmentObject var store: ThemeStore
     @State private var editMode: EditMode = .inactive
+    @State private var editItem: Theme?
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(store.themes, id: \.self) { theme in
                     NavigationLink(
-                        destination: editMode.isEditing ? AnyView(ThemeEditor(theme).navigationTitle(theme.name)) : AnyView(EmojiMemoryGameView(viewModel: EmojiMemoryGame(usingTheme: theme)).navigationTitle(theme.name)),
+                        destination: EmojiMemoryGameView(viewModel: EmojiMemoryGame(usingTheme: theme))
+                            .navigationTitle(theme.name),
                         label: {
-                            ThemeItem(theme)
-                        })
+                            HStack {
+                                if editMode.isEditing {
+                                    Image(systemName: "pencil.circle")
+                                        .imageScale(.large)
+                                        .onTapGesture {
+                                            editItem = theme
+                                        }
+                                }
+                                ThemeItem(theme)
+                            }
+                        }
+                    )
                 }
                 .onDelete { indexSet in
                     store.themes.remove(atOffsets: indexSet)
+                }
+                .popover(item: $editItem) { theme in
+                    ThemeEditor(theme: theme)
                 }
             }
             .navigationBarTitle(Text("Memorize"))
@@ -43,14 +58,12 @@ struct ThemeChooserView: View {
 }
 
 struct ThemeEditor: View {
-    var theme: Theme
+    @State var theme: Theme
     
     var body: some View {
-        Text(theme.name)
-    }
-    
-    init(_ theme: Theme) {
-        self.theme = theme
+        Form {
+            TextField("Theme Name", text: $theme.name)
+        }
     }
 }
 
@@ -79,6 +92,6 @@ struct ThemeChooserView_Previews: PreviewProvider {
     
     static var previews: some View {
         ThemeChooserView().environmentObject(ThemeStore())
-        ThemeEditor(previewTheme)
+        ThemeEditor(theme: previewTheme)
     }
 }
