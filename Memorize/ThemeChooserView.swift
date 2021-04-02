@@ -35,7 +35,7 @@ struct ThemeChooserView: View {
                                         .popover(item: $editItem) { theme in
                                             ThemeEditor(theme: theme)
                                                 .environmentObject(store)
-                                                .frame(width: popoverWidth, height: popoverHeight)
+                                                .frame(minWidth: 0, idealWidth: popoverWidth, maxWidth: .infinity, minHeight: 0, idealHeight: popoverHeight, maxHeight: .infinity, alignment: .center)
                                         }
                                 }
                                 ThemeItem(theme)
