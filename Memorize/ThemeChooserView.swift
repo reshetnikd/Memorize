@@ -12,6 +12,11 @@ struct ThemeChooserView: View {
     @State private var editMode: EditMode = .inactive
     @State private var editItem: Theme?
     
+    // MARK: - Drawing Constants
+    
+    private let popoverWidth: CGFloat = 400
+    private let popoverHeight: CGFloat = 530
+    
     var body: some View {
         NavigationView {
             List {
@@ -27,6 +32,11 @@ struct ThemeChooserView: View {
                                         .onTapGesture {
                                             editItem = theme
                                         }
+                                        .popover(item: $editItem) { theme in
+                                            ThemeEditor(theme: theme)
+                                                .environmentObject(store)
+                                                .frame(width: popoverWidth, height: popoverHeight)
+                                        }
                                 }
                                 ThemeItem(theme)
                             }
@@ -35,10 +45,6 @@ struct ThemeChooserView: View {
                 }
                 .onDelete { indexSet in
                     store.themes.remove(atOffsets: indexSet)
-                }
-                .popover(item: $editItem) { theme in
-                    ThemeEditor(theme: theme)
-                        .environmentObject(store)
                 }
             }
             .navigationBarTitle(Text("Memorize"))
@@ -65,6 +71,12 @@ struct ThemeEditor: View {
     @State private var cardsCount = 2
     @State private var isEditing = false
     @State var theme: Theme
+    
+    // MARK: - Drawing Constants
+    
+    private let fontSize: CGFloat = 40
+    private let additionalFontSize: CGFloat = 10
+    private let itemsCount: Int = 5
     
     var body: some View {
         VStack {
@@ -109,13 +121,13 @@ struct ThemeEditor: View {
                     Text("Emojis")
                     Spacer()
                     Text("tap emoji to exclude")
-                        .font(Font.system(size: 10))
+                        .font(Font.system(size: additionalFontSize))
                 }) {
-                    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 5)
+                    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: itemsCount)
                     LazyVGrid(columns: columns) {
                         ForEach(theme.emoji, id: \.self) { emoji in
                             Text(emoji)
-                                .font(Font.system(size: 40))
+                                .font(Font.system(size: fontSize))
                                 .onTapGesture {
                                     if theme.emoji.count >= 3 {
                                         theme.emoji.removeAll { $0 == emoji }
