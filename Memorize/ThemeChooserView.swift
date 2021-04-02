@@ -38,6 +38,7 @@ struct ThemeChooserView: View {
                 }
                 .popover(item: $editItem) { theme in
                     ThemeEditor(theme: theme)
+                        .environmentObject(store)
                 }
             }
             .navigationBarTitle(Text("Memorize"))
@@ -58,11 +59,64 @@ struct ThemeChooserView: View {
 }
 
 struct ThemeEditor: View {
+    @State private var themeName = ""
+    @State private var emojis = ""
+    @State private var cardsCount = 2
+    @State private var isEditing = false
     @State var theme: Theme
     
     var body: some View {
-        Form {
-            TextField("Theme Name", text: $theme.name)
+        VStack {
+            ZStack {
+                Text(theme.name)
+                    .fontWeight(.bold)
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        // TODO: - Save theme to store.
+                    }, label: {
+                        Text("Done")
+                    })
+                }
+            }
+            .padding()
+            Form {
+                TextField("Theme Name", text: $themeName) { isEditing in
+                    self.isEditing = isEditing
+                } onCommit: {
+                    theme.name = themeName
+                }
+                Section(header: Text("Add Emoji")) {
+                    HStack {
+                        TextField("Emoji", text: $emojis)
+                        Button(action: {
+                            // TODO: - Save emoji to store.
+                        }, label: {
+                            Text("Add")
+                        })
+                    }
+                }
+                Section(header: HStack {
+                    Text("Emojis")
+                    Spacer()
+                    Text("tap emoji to exclude")
+                        .font(Font.system(size: 10))
+                }) {
+                    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 5)
+                    LazyVGrid(columns: columns) {
+                        ForEach(theme.emoji, id: \.self) { emoji in
+                            Text(emoji)
+                                .font(Font.system(size: 40))
+                                .onTapGesture {
+                                    // TODO: - Remove emoji.
+                                }
+                        }
+                    }
+                }
+                Section(header: Text("Card Count")) {
+                    Stepper("\(cardsCount) Pairs", value: $cardsCount, in: 2...theme.emoji.count)
+                }
+            }
         }
     }
 }
@@ -91,7 +145,6 @@ struct ThemeChooserView_Previews: PreviewProvider {
     static var previewTheme = Theme(name: "Untitled", emoji: ["👍🏻", "👎🏻"], numberOfCards: 2, color: .init(red: 0, green: 0, blue: 0, alpha: 1))
     
     static var previews: some View {
-        ThemeChooserView().environmentObject(ThemeStore())
         ThemeEditor(theme: previewTheme)
     }
 }
