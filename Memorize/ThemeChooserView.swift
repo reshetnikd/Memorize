@@ -44,7 +44,6 @@ struct ThemeChooserView: View {
             .navigationBarTitle(Text("Memorize"))
             .navigationBarItems(
                 leading: Button(action: {
-                    // TODO: - ThemeEditor()
                     let untitled = Theme(name: "Untitled", emoji: ["👍🏻", "👎🏻"], numberOfCards: 2, color: .init(red: 0, green: 0, blue: 0, alpha: 1))
                     store.themes.append(untitled)
                 }, label: {
@@ -59,6 +58,8 @@ struct ThemeChooserView: View {
 }
 
 struct ThemeEditor: View {
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var store: ThemeStore
     @State private var themeName = ""
     @State private var emojis = ""
     @State private var cardsCount = 2
@@ -73,7 +74,13 @@ struct ThemeEditor: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        // TODO: - Save theme to store.
+                        if !themeName.isEmpty {
+                            theme.name = themeName
+                        }
+                        if let index = store.themes.firstIndex(matching: theme) {
+                            store.themes[index] = theme
+                        }
+                        presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Done")
                     })
@@ -81,16 +88,18 @@ struct ThemeEditor: View {
             }
             .padding()
             Form {
-                TextField("Theme Name", text: $themeName) { isEditing in
-                    self.isEditing = isEditing
-                } onCommit: {
-                    theme.name = themeName
-                }
+                TextField("Theme Name", text: $themeName)
                 Section(header: Text("Add Emoji")) {
                     HStack {
                         TextField("Emoji", text: $emojis)
                         Button(action: {
-                            // TODO: - Save emoji to store.
+                            if !emojis.isEmpty {
+                                emojis.forEach { emoji in
+                                    if !theme.emoji.contains(String(emoji)) {
+                                        theme.emoji.append(String(emoji))
+                                    }
+                                }
+                            }
                         }, label: {
                             Text("Add")
                         })
@@ -108,13 +117,20 @@ struct ThemeEditor: View {
                             Text(emoji)
                                 .font(Font.system(size: 40))
                                 .onTapGesture {
-                                    // TODO: - Remove emoji.
+                                    if theme.emoji.count >= 3 {
+                                        theme.emoji.removeAll { $0 == emoji }
+                                        if theme.numberOfCards >= theme.emoji.count {
+                                            theme.numberOfCards = theme.emoji.count
+                                        }
+                                    }
                                 }
                         }
                     }
                 }
                 Section(header: Text("Card Count")) {
-                    Stepper("\(cardsCount) Pairs", value: $cardsCount, in: 2...theme.emoji.count)
+                    Stepper("\(theme.numberOfCards) Pairs", value: $cardsCount, in: 2...theme.emoji.count, step: 1) { _ in
+                        theme.numberOfCards = cardsCount
+                    }
                 }
             }
         }
